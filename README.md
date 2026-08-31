@@ -10,8 +10,6 @@ WoVR addresses unreliable imagined rollouts through an action-conditioned video 
 
 This repository hosts policy RL and world-model environment integration. Training and fine-tuning the world model are covered by the separate [World Model training repository](https://github.com/youmo445/diffsynth-studio-rlinf).
 
-> **Release scope:** The Quick Start below runs OpenVLA-OFT + GRPO with a **frozen Wan world model** and KIR on LIBERO. It does not automatically execute the full co-evolution loop. To perform co-evolution, collect additional trajectories with the updated policy, retrain the world model in the separate training repository, and update the simulator checkpoints between RL stages.
-
 ## Quick Start
 
 The example below uses **LIBERO-Spatial**. Run the commands in **Bash on a Linux GPU machine** with compatible NVIDIA drivers. Docker requires the NVIDIA Container Toolkit. Native Windows training is not covered by this recipe. Model downloads require substantial disk space; GPU memory requirements depend on batch sizes and environment parallelism. See the [installation requirements](https://rlinf.readthedocs.io/en/latest/rst_source/start/installation.html) for platform setup.
