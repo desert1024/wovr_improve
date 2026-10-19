@@ -7,7 +7,7 @@ set -euo pipefail
 #   bash /data/wovr/start.sh bash /path/to/script  # custom command
 #
 # Env overrides:
-#   GPU=8 CPU=100 MEM_GB=800 PREEMPTIBLE=yes
+#   GPU=8 CPU=100 MEM_GB=800 PREEMPTIBLE=no
 #   NODE=<node fqdn>   optional: pin to a node
 #   IMAGE=<ref>        optional: switch back to image mode
 
@@ -40,7 +40,7 @@ exec rlaunch "${DETACH_FLAG[@]}" \
     --gpu="${GPU:-8}" \
     --cpu="${CPU:-100}" \
     --memory=$((1024 * ${MEM_GB:-800})) \
-    --preemptible "${PREEMPTIBLE:-yes}" \
+    --preemptible "${PREEMPTIBLE:-no}" \
     --positive-tags=a800 \
     ${POSITIVE_TAGS[@]+"${POSITIVE_TAGS[@]}"} \
     ${IMAGE_ARGS[@]+"${IMAGE_ARGS[@]}"} \
