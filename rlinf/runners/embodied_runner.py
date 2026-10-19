@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import ctypes
+import gc
 import logging
 import os
 import queue
@@ -445,9 +447,27 @@ class EmbodiedRunner:
         logging_metrics.update(rollout_metrics)
         logging_metrics.update(training_metrics)
 
+        self.logger.info(
+            "[profile] step=%s rollout=%.1fs actor_train=%.1fs sync_weights=%.1fs "
+            "adv=%.1fs step_total=%.1fs",
+            step,
+            logging_metrics.get("time/generate_rollouts", float("nan")),
+            logging_metrics.get("time/actor_training", float("nan")),
+            logging_metrics.get("time/sync_weights", float("nan")),
+            logging_metrics.get("time/cal_adv_and_returns", float("nan")),
+            logging_metrics.get("time/step", float("nan")),
+        )
+
         self.print_metrics_table_async(
             step, self.max_steps, start_time, logging_metrics, start_step
         )
+
+    def _release_cpu_memory(self) -> None:
+        gc.collect()
+        try:
+            ctypes.CDLL("libc.so.6").malloc_trim(0)
+        except Exception:
+            pass
 
     def _finish_run(self) -> None:
         self.metric_logger.finish()
@@ -483,6 +503,7 @@ class EmbodiedRunner:
         start_step = self.global_step
         start_time = time.time()
         for _step in range(start_step, self.max_steps):
+            self._release_cpu_memory()
             # set global step
             self.actor.set_global_step(self.global_step).wait()
             self.rollout.set_global_step(self.global_step).wait()
@@ -567,6 +588,7 @@ class EmbodiedRunner:
         start_step = self.global_step
         start_time = time.time()
         for _step in range(start_step, self.max_steps):
+            self._release_cpu_memory()
             # set global step
             self.actor.set_global_step(self.global_step).wait()
             self.rollout.set_global_step(self.global_step).wait()

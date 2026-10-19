@@ -54,7 +54,7 @@ def get_env_attr(env, name: str, default: Any = None) -> Any:
         try:
             return env.get_wrapper_attr(name)
         except AttributeError:
-            return default
+            pass
     return getattr(env, name, default)
 
 
