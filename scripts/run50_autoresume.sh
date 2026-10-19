@@ -53,6 +53,7 @@ while true; do
     echo "[auto] $(date) starting from step $STEP (ckpt=${CKPT:-none})"
     {
         echo "#!/bin/bash"
+        echo "exec > /data/wovr/logs/run50_worker.log 2>&1"
         echo "export STEPS=$TOTAL"
         [ -n "$CKPT" ] && echo "export RESUME=$CKPT"
         echo "exec bash /data/wovr/code/WoVR/scripts/run_wovr_adaptive.sh"
