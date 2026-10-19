@@ -93,7 +93,7 @@ env:
     reset_gripper_open: True
     is_eval: True
     video_cfg:
-      save_video: False
+      save_video: True
       video_base_dir: ${runner.logger.log_path}/video/eval
 
 rollout:
