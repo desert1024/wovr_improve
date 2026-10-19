@@ -3,7 +3,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd /data/wovr/code/WoVR
 
-GPU_NAME=$(nvidia-smi --query-gpu=name --format=csv,noheader | head -1)
+GPU_NAME=$(nvidia-smi --query-gpu=name --format=csv,noheader | sed -n "1p")
 GPU_COUNT=$(nvidia-smi -L | wc -l)
 RAM_GB=$(free -g | awk "/^Mem:/{print \$2}")
 echo "[adaptive] gpu=$GPU_NAME count=$GPU_COUNT ram=${RAM_GB}G"
