@@ -7,7 +7,7 @@ set -euo pipefail
 #   bash /data/wovr/start.sh bash /path/to/script  # custom command
 #
 # Env overrides:
-#   GPU=8 CPU=100 MEM_GB=1000 PREEMPTIBLE=yes
+#   GPU=8 CPU=60 MEM_GB=400 GPU_TAG=a800 PREEMPTIBLE=yes
 #   NODE=<node fqdn>   optional: pin to a node
 #   IMAGE=<ref>        optional: switch back to image mode
 
