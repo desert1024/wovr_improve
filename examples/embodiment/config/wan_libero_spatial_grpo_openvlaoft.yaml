@@ -31,7 +31,7 @@ runner:
 
   only_eval: False
   val_check_interval: 10
-  save_interval: 20
+  save_interval: 5
 
   resume_dir: null # Optional: path to a saved checkpoint directory, such as 'checkpoints/global_step_10'. If not None, it will be used to resume training.
   ckpt_path: null  # Optional: path to a .pt checkpoint. If not None, it will be loaded after the model is instantiated (for evaluation).
@@ -70,7 +70,7 @@ env:
 
   # Override the default values in env/libero_spatial
   train:
-    rollout_epoch: 8
+    rollout_epoch: 16
     total_num_envs: 64
     group_size: ${algorithm.group_size}
     max_episode_steps: 256 # max episode steps for truncation
