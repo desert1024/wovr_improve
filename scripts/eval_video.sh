@@ -1,4 +1,5 @@
 #!/bin/bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 set -euo pipefail
 cd /data/wovr/code/WoVR
 
@@ -18,7 +19,7 @@ OUT=${OUT:-/data/wovr/eval_results/step20}
 ENVS=${ENVS:-32}
 
 if [ ! -f "$HF/model.safetensors" ]; then
-    python /data/wovr/convert_ckpt_to_hf.py --ckpt "$CKPT" --out "$HF"
+    python $SCRIPT_DIR/convert_ckpt_to_hf.py --ckpt "$CKPT" --out "$HF"
 fi
 
 python evaluations/eval_embodied_agent.py \

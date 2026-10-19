@@ -1,3 +1,4 @@
 #!/bin/bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export STEPS=20
-bash /data/wovr/run_wovr.sh
+bash $SCRIPT_DIR/run_wovr.sh
