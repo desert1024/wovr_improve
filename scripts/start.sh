@@ -41,7 +41,7 @@ exec rlaunch "${DETACH_FLAG[@]}" \
     --cpu="${CPU:-100}" \
     --memory=$((1024 * ${MEM_GB:-800})) \
     --preemptible "${PREEMPTIBLE:-yes}" \
-    --positive-tags=a800 \
+    --positive-tags=a100 \
     ${POSITIVE_TAGS[@]+"${POSITIVE_TAGS[@]}"} \
     ${IMAGE_ARGS[@]+"${IMAGE_ARGS[@]}"} \
     --volume /data:/data \
