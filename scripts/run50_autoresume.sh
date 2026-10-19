@@ -55,7 +55,7 @@ while true; do
         echo "#!/bin/bash"
         echo "export STEPS=$TOTAL"
         [ -n "$CKPT" ] && echo "export RESUME=$CKPT"
-        echo "exec bash /data/wovr/code/WoVR/scripts/run_wovr.sh"
+        echo "exec bash /data/wovr/code/WoVR/scripts/run_wovr_adaptive.sh"
     } > "$CMD"
     chmod +x "$CMD"
 

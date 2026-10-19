@@ -7,7 +7,7 @@ set -euo pipefail
 #   bash /data/wovr/start.sh bash /path/to/script  # custom command
 #
 # Env overrides:
-#   GPU=8 CPU=100 MEM_GB=800 PREEMPTIBLE=yes
+#   GPU=8 CPU=100 MEM_GB=1000 PREEMPTIBLE=yes
 #   NODE=<node fqdn>   optional: pin to a node
 #   IMAGE=<ref>        optional: switch back to image mode
 
@@ -23,6 +23,8 @@ if [ "$#" -eq 0 ]; then
 fi
 
 NODE=${NODE:-}
+TAG_ARGS=()
+[ -n "${GPU_TAG:-}" ] && TAG_ARGS=(--positive-tags="${GPU_TAG}")
 POSITIVE_TAGS=()
 if [ -n "${NODE}" ]; then
     POSITIVE_TAGS=(--positive-tags="node/${NODE}")
@@ -39,9 +41,9 @@ echo "[start] command: $*"
 exec rlaunch "${DETACH_FLAG[@]}" \
     --gpu="${GPU:-8}" \
     --cpu="${CPU:-100}" \
-    --memory=$((1024 * ${MEM_GB:-800})) \
+    --memory=$((1024 * ${MEM_GB:-1000})) \
     --preemptible "${PREEMPTIBLE:-yes}" \
-    --positive-tags=a100 \
+    ${TAG_ARGS[@]+"${TAG_ARGS[@]}"} \
     ${POSITIVE_TAGS[@]+"${POSITIVE_TAGS[@]}"} \
     ${IMAGE_ARGS[@]+"${IMAGE_ARGS[@]}"} \
     --volume /data:/data \
