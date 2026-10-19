@@ -23,6 +23,7 @@ if [ "$#" -eq 0 ]; then
 fi
 
 NODE=${NODE:-}
+GPU_TAG=${GPU_TAG-a800}
 TAG_ARGS=()
 [ -n "${GPU_TAG:-}" ] && TAG_ARGS=(--positive-tags="${GPU_TAG}")
 POSITIVE_TAGS=()
@@ -40,8 +41,8 @@ echo "[start] command: $*"
 
 exec rlaunch "${DETACH_FLAG[@]}" \
     --gpu="${GPU:-8}" \
-    --cpu="${CPU:-100}" \
-    --memory=$((1024 * ${MEM_GB:-1000})) \
+    --cpu="${CPU:-60}" \
+    --memory=$((1024 * ${MEM_GB:-400})) \
     --preemptible "${PREEMPTIBLE:-yes}" \
     ${TAG_ARGS[@]+"${TAG_ARGS[@]}"} \
     ${POSITIVE_TAGS[@]+"${POSITIVE_TAGS[@]}"} \
